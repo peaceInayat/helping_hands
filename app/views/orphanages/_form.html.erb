@@ -1,0 +1,42 @@
+<%= form_for(@orphanage) do |f| %>
+    <% if @orphanage.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@orphanage.errors.count, "error") %> prohibited this orphanage from being saved:</h2>
+
+          <ul>
+            <% @orphanage.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <h2>Create Orphanage</h2>
+
+    <div><%= f.label :first_name %><br />
+      <%= f.text_field :first_name, autofocus: true %></div>
+
+    <div><%= f.label :last_name %><br />
+      <%= f.text_field :last_name, autofocus: true %></div>
+
+    <div><%= f.label :address %><br />
+      <%= f.text_field :address, autofocus: true %></div>
+
+    <div><%= f.label :phone_no %><br />
+      <%= f.text_field :phone_no, autofocus: true %></div>
+
+
+    <div><%= f.label :email %><br />
+      <%= f.email_field :email, autofocus: true %></div>
+
+    <div><%= f.label :password %> <% if @validatable %><i>(<%= @minimum_password_length %> characters minimum)</i><% end %><br />
+      <%= f.password_field :password, autocomplete: "off" %></div>
+
+    <div><%= f.label :password_confirmation %><br />
+      <%= f.password_field :password_confirmation, autocomplete: "off" %></div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+
+<% end %>
+

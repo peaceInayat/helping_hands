@@ -1,0 +1,5 @@
+class Orphanage < User
+
+
+
+end
