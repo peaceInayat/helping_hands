@@ -1,29 +1,56 @@
 <%= form_for(@student) do |f| %>
-  <% if @student.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@student.errors.count, "error") %> prohibited this student from being saved:</h2>
+    <% if @student.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@student.errors.count, "error") %> prohibited this student from being saved:</h2>
 
-      <ul>
-      <% @student.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+          <ul>
+            <% @student.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <%= f.collection_select :zone_id, Zone.all,:id,:email, include_blank: "Please Select" %>
+    <%= f.collection_select :orphanage_id, [current_user.zone],:id,:email, include_blank: "Please Select" %>
+
+    <div class="field">
+      <%= f.label :name %><br>
+      <%= f.text_field :name %>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :kaksha %><br>
-    <%= f.text_field :kaksha %>
-  </div>
-  <div class="field">
-    <%= f.label :gender %><br>
-    <%= f.text_field :gender %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <div class="field">
+      <%= f.label :kaksha %><br>
+      <%= f.text_field :kaksha %>
+    </div>
+    <div class="field">
+      <%= f.label :gender %><br>
+      <%= f.text_field :gender %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
 <% end %>
+
+
+<script>
+
+
+    $(document).ready(function(){
+
+        $("#student_zone_id").change(function() {
+            set_default($("#student_orphanage_id"));
+            var zone = $('select#student_zone_id :selected').val();
+            if(zone==""){
+                zone=0;
+                $("#student_orphanage_id").attr('disabled','disabled');
+            }
+            /*var url = '/institution/get_centers/' + institution*/
+            var url = '/zones/'+zone+'/get_all_orphanages';
+            var div_update = "#student_orphanage_id";
+            get_url_Data_for_multiparams(url,div_update);
+
+        });
+
+    });
+
+</script>

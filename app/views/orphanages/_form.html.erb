@@ -13,6 +13,9 @@
 
     <h2>Create Orphanage</h2>
 
+    <%= f.collection_select :zone_id, Zone.all,:id,:email, include_blank: "Please Select" %>
+
+
     <div><%= f.label :first_name %><br />
       <%= f.text_field :first_name, autofocus: true %></div>
 

@@ -1,0 +1,25 @@
+<%= form_for(@zone) do |f| %>
+    <% if @zone.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@zone.errors.count, "error") %> prohibited this zone from being saved:</h2>
+
+          <ul>
+            <% @zone.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div><%= f.label :email %><br />
+      <%= f.email_field :email, autofocus: true %></div>
+
+    <div><%= f.label :password %> <% if @validatable %><i>(<%= @minimum_password_length %> characters minimum)</i><% end %><br />
+      <%= f.password_field :password, autocomplete: "off" %></div>
+
+    <div><%= f.label :password_confirmation %><br />
+      <%= f.password_field :password_confirmation, autocomplete: "off" %></div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>

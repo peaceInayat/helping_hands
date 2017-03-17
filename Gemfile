@@ -54,3 +54,4 @@ group :production do
 end
 
 gem 'devise', '~> 3.4.1'
+gem 'cancan', '~> 1.6', '>= 1.6.10'
