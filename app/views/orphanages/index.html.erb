@@ -4,21 +4,25 @@
 
 <table>
   <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
+  <tr>
+    <th colspan="3"></th>
+  </tr>
   </thead>
 
   <tbody>
-    <% @orphanages.each do |orphanage| %>
+  <% @orphanages.each do |orphanage| %>
       <tr>
         <td><%= orphanage.first_name %></td>
         <td><%= orphanage.zone.email %></td>
         <td><%= link_to 'Show', orphanage %></td>
-        <td><%= link_to 'Edit', edit_orphanage_path(orphanage) %></td>
-        <td><%= link_to 'Destroy', orphanage, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if can? :update, orphanage %>
+            <td><%= link_to 'Edit', edit_orphanage_path(orphanage) %></td>
+        <% end %>
+        <% if current_user.type == 'Zone' || current_user.type == 'Admin' %>
+            <td><%= link_to 'Destroy', orphanage, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
-    <% end %>
+  <% end %>
   </tbody>
 </table>
 

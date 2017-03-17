@@ -9,9 +9,22 @@
 <body>
 <% if user_signed_in? -%>
     <ul class="nav navbar-nav navbar-right">
-      <li><%= link_to 'Create Student', new_student_path %></li>
-      <li><%= link_to 'Create Orphanage', new_orphanage_path %></li>
-      <li><%= link_to 'Create Zone', new_zone_path %></li>
+      <% if current_user.type == 'Admin' %>
+          <li><%= link_to 'Create Zone', new_zone_path %></li>
+          <li><%= link_to 'Create Orphanage', new_orphanage_path %></li>
+          <li><%= link_to 'Create Student', new_student_path %></li>
+      <% end %>
+
+      <% if current_user.type == 'Zone' %>
+          <li><%= link_to 'Create Orphanage', new_orphanage_path %></li>
+          <li><%= link_to 'Create Student', new_student_path %></li>
+      <% end %>
+
+      <% if current_user.type == 'Orphanage' %>
+          <li><%= link_to 'Create Student', new_student_path %></li>
+      <% end %>
+      <li><%= link_to 'List of Zones', zones_path %></li>
+      <li><%= link_to 'List of Orphanages', orphanages_path %></li>
       <li><%= link_to 'Account', edit_user_registration_path %></li>
       <li><%= link_to 'Sign out', destroy_user_session_path, :method => :delete %></li>
     </ul>

@@ -3,11 +3,11 @@ class Ability
 
   def initialize(user)
 
-    if user.type? 'Admin'
+    if user.type == 'Admin'
       can :manage, :all
 
 
-    elsif user.type? 'Zone'
+    elsif user.type == 'Zone'
       can :create, Orphanage
       can :create, Student
       can :update, Zone do |zone|
@@ -16,12 +16,15 @@ class Ability
       can :update, Orphanage do |orphanage|
         orphanage.zone_id == user.id
       end
+      can :destroy, Orphanage do |orphanage|
+        orphanage.zone_id == user.id
+      end
       can :update, Student do |student|
         student.zone_id == user.id
       end
 
 
-    elsif user.type? 'Orphanage'
+    elsif user.type == 'Orphanage'
       can :create, Student
       can :update, Orphanage do |orphanage|
         orphanage.id == user.id
