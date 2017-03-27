@@ -11,8 +11,14 @@
         </div>
     <% end %>
 
-    <%= f.collection_select :zone_id, Zone.all,:id,:email, include_blank: "Please Select" %>
-    <%= f.collection_select :orphanage_id, [current_user.zone],:id,:email, include_blank: "Please Select" %>
+    <%= f.collection_select :zone_id, Zone.all,:id,:first_name, include_blank: false%>
+    <% if current_user.type == 'Orphanage' %>
+        <%= f.collection_select :orphanage_id, [current_user.zone],:id,:first_name, include_blank: false %>
+    <% else %>
+        <%= f.collection_select :orphanage_id, Orphanage.all,:id,:first_name, include_blank: false, required:true %>
+    <% end %>
+
+
 
     <div class="field">
       <%= f.label :name %><br>
@@ -26,7 +32,7 @@
       <%= f.label :gender %><br>
       <%= f.text_field :gender %>
     </div>
-    <div class="actions">
+    <div id = "submit" class="actions">
       <%= f.submit %>
     </div>
 <% end %>
@@ -50,6 +56,15 @@
             get_url_Data_for_multiparams(url,div_update);
 
         });
+
+        $("#submit").click(function() {
+            var zone = $('select#student_orphanage_id :selected').val();
+            if(zone==""){
+                alert("Please Select Orphanage");
+                return false;
+            }
+        });
+
 
     });
 

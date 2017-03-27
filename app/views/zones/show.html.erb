@@ -1,4 +1,36 @@
 <p id="notice"><%= notice %></p>
-
+<h3><%= @zone.first_name %></h3>
+<br>
 <%= link_to 'Edit', edit_zone_path(@zone) %> |
 <%= link_to 'Back', zones_path %>
+
+<br><br>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>Orphanage Name</th>
+    <th>Email</th>
+    <th>Contact Number</th>
+    <th>Number of Students</th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @orphanages.each do |orphanage| %>
+      <tr>
+        <td><%= link_to orphanage.first_name, orphanage %></td>
+        <td><%= orphanage.email %></td>
+        <td><%= orphanage.phone_no %></td>
+        <td><%= orphanage.students.count %></td>
+        <td><%= link_to 'Show', orphanage %></td>
+        <% if current_user.type == 'Zone' || current_user.type == 'Admin' %>
+            <td><%= link_to 'Edit', edit_orphanage_path(orphanage) %></td>
+            <td><%= link_to 'Destroy', orphanage, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+
+
+      </tr>
+  <% end %>
+  </tbody>
+</table>

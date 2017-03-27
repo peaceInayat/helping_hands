@@ -13,5 +13,10 @@ Rails.application.routes.draw do
   resources :orphanages
   devise_for :users
   resources :students
-  root 'students#index'
+
+  authenticated :user do
+    root "orphanages#index", as: "authenticated_root"
+  end
+
+  root "welcome#index"
 end

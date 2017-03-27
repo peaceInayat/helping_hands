@@ -1,4 +1,36 @@
 <p id="notice"><%= notice %></p>
 
+<h3><%= @orphanage.first_name %></h3>
+<br>
+
+
 <%= link_to 'Edit', edit_orphanage_path(@orphanage) %> |
 <%= link_to 'Back', orphanages_path %>
+<br><br>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>Student Name</th>
+    <th>Class</th>
+    <th>Gender</th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @students.each do |student| %>
+      <tr>
+        <td><%= link_to student.name, student %></td>
+        <td><%= student.kaksha %></td>
+        <td><%= student.gender %></td>
+        <td><%= link_to 'Show', student %></td>
+
+        <% if can? :update, @orphanage %>
+            <td><%= link_to 'Edit', edit_student_path(student) %></td>
+            <td><%= link_to 'Destroy', student, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+
+      </tr>
+  <% end %>
+  </tbody>
+</table>

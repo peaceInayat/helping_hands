@@ -10,6 +10,7 @@ class ZonesController < ApplicationController
   # GET /zones/1
   # GET /zones/1.json
   def show
+    @orphanages = @zone.orphanages.all
   end
 
   # GET /zones/new
@@ -74,6 +75,6 @@ class ZonesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def zone_params
-      params.require(:zone).permit(:email, :password, :password_confirmation)
+      params.require(:zone).permit(:email, :password, :password_confirmation, :first_name, :last_name, :address, :phone_no)
     end
 end

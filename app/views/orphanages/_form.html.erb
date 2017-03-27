@@ -13,7 +13,7 @@
 
     <h2>Create Orphanage</h2>
 
-    <%= f.collection_select :zone_id, Zone.all,:id,:email, include_blank: "Please Select" %>
+    <%= f.collection_select :zone_id, Zone.all,:id,:email, include_blank: false %>
 
 
     <div><%= f.label :first_name %><br />

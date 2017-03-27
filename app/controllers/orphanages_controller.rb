@@ -10,6 +10,7 @@ class OrphanagesController < ApplicationController
   # GET /orphanages/1
   # GET /orphanages/1.json
   def show
+    @students = @orphanage.students.all
   end
 
   # GET /orphanages/new
