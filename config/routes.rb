@@ -19,4 +19,12 @@ Rails.application.routes.draw do
   end
 
   root "welcome#index"
+
+  namespace :api, defaults: {format: :json} do
+    namespace :v1 do
+      get '/get_orphanages_list' => "orphanage#get_orphanages_list"
+      get '/get_orphanage_students/:id' => "orphanage#get_orphanage_students"
+
+    end
+  end
 end
